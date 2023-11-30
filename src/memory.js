@@ -5,16 +5,15 @@ class MemoryGame {
     this.pickedCards = [];
     this.pairsClicked = 0;
     this.pairsGuessed = 0;
-
   }
 
   shuffleCards() {
     // ... write your code here
-    if (!this.cards) {
+    if (this.cards === undefined) {
       return undefined;
     }
-    for (let i = this.cards.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
+    for (let i = this.cards.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
       [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
     }
     return this.cards;
@@ -22,14 +21,9 @@ class MemoryGame {
 
   checkIfPair(card1, card2) {
     // ... write your code here
+    this.pairsClicked += 1;
     if (card1 === card2) {
-      this.pairsGuessed++;
-      return true
-    } else {
-      this.pairsClicked++;
-    }
-
-    if (this.pairsGuessed === this.cards.length / 2) {
+      this.pairsGuessed += 1;
       return true;
     } else {
       return false;
@@ -38,16 +32,17 @@ class MemoryGame {
 
   checkIfFinished() {
     // ... write your code here
-    // if (this.pickedCards.length == 0) {
-    //   return false
-    // }
-    if (this.pairsGuessed >= this.cards.length / 2) {
-      return true
+    if (this.pairsGuessed === this.cards.length / 2) {
+      return true;
     }
-    else {
-      return false
-    }
-
+    return false;
   }
-}
 
+  /* commented out method as code isn't functional as for now
+    restartGame() {
+    this.pickedCards.splice(0, 2);
+    this.pairsClicked = 0;
+    this.pairsGuessed = 0;
+    this.shuffleCards();
+  }*/
+}
